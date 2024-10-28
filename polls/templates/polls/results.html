@@ -1,0 +1,22 @@
+{% extends 'polls/base.html' %}
+
+{% block title %} Результаты {% endblock %}
+
+{% block content %}
+
+    <h1 class="mb-4">{{ question.question_text }}</h1>
+
+    <ul class="list-unstyled">
+        {% for choice in question.choice_set.all %}
+            <li class="mb-2">
+                <strong>{{ choice.choice_text }}</strong> — {{ choice.votes }} голосов
+                {% if question.votes > 0 %}
+                    <span class="text-muted">({{ choice.get_percent }}%)</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'polls:index' %}" class="btn btn-secondary mt-4">Вернуться на главную</a>
+
+{% endblock %}

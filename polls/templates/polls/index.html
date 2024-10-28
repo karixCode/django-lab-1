@@ -1,0 +1,25 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+
+    {% if latest_question_list %}
+        <h3 class="mb-4">Вопросы:</h3>
+        <ul class="list-unstyled">
+            {% for question in latest_question_list %}
+                {% if question.was_published_recently or user.is_superuser %}
+                    <li class="mb-3">
+                        <article class="p-3 border rounded bg-light">
+                            <a href="{% url 'polls:detail' question.id %}" class="h5 text-decoration-none">{{ question.question_text }}</a>
+                            <p class="text-muted">{{ question.short_description }}</p>
+                        </article>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">
+            Нет вопросов!
+        </p>
+    {% endif %}
+
+{% endblock %}
